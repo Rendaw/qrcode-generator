@@ -498,6 +498,7 @@ let qrcode = function(typeNumber, errorCorrectionLevel) {
         'x="' + x + '" ' +
         'y="' + y + '" ' +
         'fill="' + cellColor(c, r) + '" ' +
+        'shape-rendering="crispEdges" ' +
       ' />'
     );
     cellColor = cellColor || (() => 'black');

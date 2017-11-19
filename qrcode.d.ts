@@ -29,7 +29,11 @@ interface QRCode {
   getModuleCount() : number;
   isDark(row: number, col: number) : boolean;
   createImgTag(cellSize?: number, margin?: number) : string;
-  createSvgTag(cellSize?: number, margin?: number) : string;
+  createSvgTag({drawCell, cellColor, cellSize, margin, obstruction}: {
+	  drawCell?: (c: number, r: number, x: number, y: number) : string,
+	  cellSize?: number,
+	  margin?: number,
+	  obstruction?: {path: string, width: number, height: number}}) : string;
   createTableTag(cellSize?: number, margin?: number) : string;
 }
 

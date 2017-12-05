@@ -20,5 +20,8 @@
     "qrcode",
     "generator"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "documentation": "^5.3.3"
+  }
 }

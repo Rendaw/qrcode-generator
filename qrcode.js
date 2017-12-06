@@ -24,7 +24,10 @@ const PAD0 = 0xEC;
 const PAD1 = 0x11;
 	
 /**
- * Creates a QR code. Set the code data with `addData` and, call `make` and then call `createSvgTag` or `createImgTag`.
+ * Displays a QR code. Set the code data with `addData` and, call `make` and then call `createSvgTag` or `createImgTag`.
+ *
+ * See `gallery.html` for an example.
+ *
  * @param {integer} typeNumber The minimum QR code type number from 1 to 40.  Using 0 allows any QR code type number.
  * @param {String} errorCorrectionLevel 'L','M','Q','H'
  */

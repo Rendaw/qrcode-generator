@@ -9,7 +9,6 @@
     -   [make](#make)
     -   [createSvgTag](#createsvgtag)
     -   [createImgTag](#createimgtag)
-    -   [createStringToBytes](#createstringtobytes)
 -   [stringToBytesFuncs](#stringtobytesfuncs)
 -   [stringToBytes](#stringtobytes)
 -   [QRMode](#qrmode)
@@ -20,7 +19,9 @@
 
 ## qrcode
 
-Creates a QR code. Set the code data with `addData` and, call `make` and then call `createSvgTag` or `createImgTag`.
+Displays a QR code. Set the code data with `addData` and, call `make` and then call `createSvgTag` or `createImgTag`.
+
+See `gallery.html` for an example.
 
 **Parameters**
 
@@ -68,14 +69,6 @@ Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 -   `margin` **integer** The margin to draw around the QR code in pixels.
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** An img tag as a string.
-
-### createStringToBytes
-
-**Parameters**
-
--   `unicodeData`  base64 string of byte array.
-    [16bit Unicode],[16bit Bytes], ...
--   `numChars`  
 
 ## stringToBytesFuncs
 

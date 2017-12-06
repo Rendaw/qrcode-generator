@@ -1,6 +1,6 @@
 import qrcode from './qrcode.js';
 
-const qr = qrcode(0, 'H');
+const qr = new qrcode(0, 'H');
 qr.addData('this is a gallery sample qr code');
 qr.make();
 document.getElementsByTagName('body')[0].innerHTML = qr.createSvgTag({

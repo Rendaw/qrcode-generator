@@ -583,72 +583,6 @@ export const stringToBytes = stringToBytesFuncs['default'];
 //---------------------------------------------------------------------
 
 /**
- * @param unicodeData base64 string of byte array.
- * [16bit Unicode],[16bit Bytes], ...
- * @param numChars
- */
-qrcode.createStringToBytes = function(unicodeData, numChars) {
-
-	// create conversion map.
-
-	let unicodeMap = function() {
-
-		let bin = base64DecodeInputStream(unicodeData);
-		let read = function() {
-			let b = bin.read();
-			if (b == -1) throw 'eof';
-			return b;
-		};
-
-		let count = 0;
-		let unicodeMap = {};
-		while (true) {
-			let b0 = bin.read();
-			if (b0 == -1) break;
-			let b1 = read();
-			let b2 = read();
-			let b3 = read();
-			let k = String.fromCharCode( (b0 << 8) | b1);
-			let v = (b2 << 8) | b3;
-			unicodeMap[k] = v;
-			count += 1;
-		}
-		if (count != numChars) {
-			throw count + ' != ' + numChars;
-		}
-
-		return unicodeMap;
-	}();
-
-	let unknownChar = '?'.charCodeAt(0);
-
-	return function(s) {
-		let bytes = [];
-		for (let i = 0; i < s.length; i += 1) {
-			let c = s.charCodeAt(i);
-			if (c < 128) {
-				bytes.push(c);
-			} else {
-				let b = unicodeMap[s.charAt(i)];
-				if (typeof b == 'number') {
-					if ( (b & 0xff) == b) {
-						// 1byte
-						bytes.push(b);
-					} else {
-						// 2bytes
-						bytes.push(b >>> 8);
-						bytes.push(b & 0xff);
-					}
-				} else {
-					bytes.push(unknownChar);
-				}
-			}
-		}
-		return bytes;
-	};
-};
-
-/**
  *
  */
 const QRMode = {
@@ -1555,7 +1489,7 @@ const qrAlphaNum = function(data) {
 const qr8BitByte = function(data) {
 
 	let _mode = QRMode.MODE_8BIT_BYTE;
-	let _bytes = qrcode.stringToBytes(data);
+	let _bytes = stringToBytes(data);
 
 	let _this = {};
 
@@ -1584,7 +1518,7 @@ const qrKanji = function(data) {
 
 	let _mode = QRMode.MODE_KANJI;
 
-	let stringToBytes = qrcode.stringToBytesFuncs['SJIS'];
+	let stringToBytes = stringToBytesFuncs['SJIS'];
 	if (!stringToBytes) {
 		throw 'sjis not supported.';
 	}
@@ -1715,7 +1649,7 @@ let base64EncodeOutputStream = function() {
 		_base64 += String.fromCharCode(encode(b & 0x3f) );
 	};
 
-	var encode = function(n) {
+	const encode = function(n) {
 		if (n < 0) {
 			// error.
 		} else if (n < 26) {

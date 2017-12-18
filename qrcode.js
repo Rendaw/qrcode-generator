@@ -498,7 +498,7 @@ export default class qrcode {
 		const modCount = this.getModuleCount();
 		const totalSize = modCount * cellSize + margin * 2;
 		let obstructionCRStart, obstructionCREnd;
-		if (typeof obstruction !== 'undefined') {
+		if (obstruction) {
 			const {width, height} = obstruction;
 			const spans = [
 				Math.ceil(width * modCount),
@@ -513,6 +513,7 @@ export default class qrcode {
 			for (let c = 0; c < modCount; c += 1) {
 				const mc = c * cellSize + margin;
 				if (
+						obstruction &&
 						c >= obstructionCRStart[0] && c < obstructionCREnd[0] &&
 						r >= obstructionCRStart[1] && r < obstructionCREnd[1]) {
 					if (c == obstructionCRStart[0] && r == obstructionCRStart[1]) {

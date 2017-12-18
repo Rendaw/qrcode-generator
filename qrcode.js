@@ -549,12 +549,13 @@ export default class qrcode {
 		let size = this.getModuleCount() * cellSize + margin * 2;
 		let min = margin;
 		let max = size - margin;
+		let self = this;
 
 		return createImgTag(size, size, function(x, y) {
 			if (min <= x && x < max && min <= y && y < max) {
 				let c = Math.floor( (x - min) / cellSize);
 				let r = Math.floor( (y - min) / cellSize);
-				return this.isDark(r, c)? 0 : 1;
+				return self.isDark(r, c)? 0 : 1;
 			} else {
 				return 1;
 			}

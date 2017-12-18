@@ -3,7 +3,7 @@
  * <table width="100%">
  *     <tr>
  *         <td>
- *             <a href="https://circleci.com/gh/rendaw/qrcode-generator-es6"><img alt="Build Status" src="https://circleci.com/gh/rendaw/depflow.svg?style=svg"></a>
+ *             <a href="https://circleci.com/gh/rendaw/qrcode-generator-es6"><img alt="Build Status" src="https://circleci.com/gh/rendaw/qrcode-generator-es6.svg?style=svg"></a>
  *         </td>
  * </table>
  *

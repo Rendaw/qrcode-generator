@@ -498,7 +498,8 @@ export default class qrcode {
 	 * @param {Object} [args.obstruction] An image to place in the center of the QR code.
 	 * @param {integer} args.obstruction.width Width of the obstruction as a percentage of QR code width.
 	 * @param {integer} args.obstruction.height Height of the obstruction as a percentage of QR code height.
-	 * @param {String} args.obstruction.path The path of the obstruction image.
+	 * @param {String} args.obstruction.path The path of the obstruction image. Exclusive with svgData.
+	 * @param {String} args.obstruction.svgData The SVG data to embed as an obstruction. Must start with `<svg`. Exclusive with path.
 	 * @returns {String} An svg tag as a string.
 	 */
 	createSvgTag({drawCell, cellColor, cellSize, margin, obstruction}) {
@@ -518,7 +519,9 @@ export default class qrcode {
 		let size = this.getModuleCount() * cellSize + margin * 2;
 		let qrSvg = '';
 
-		qrSvg += '<svg version="1.1" xmlns="http://www.w3.org/2000/svg"';
+		qrSvg += '<svg version="1.1"';
+		qrSvg += ' xmlns="http://www.w3.org/2000/svg"';
+		qrSvg += ' xmlns:xlink="http://www.w3.org/1999/xlink"';
 		qrSvg += ' viewBox="0 0 ' + size + ' ' + size + '" ';
 		qrSvg += ' preserveAspectRatio="xMinYMin meet">';
 		qrSvg += '<rect width="100%" height="100%" fill="white" x="0" y="0"/>';
@@ -545,14 +548,19 @@ export default class qrcode {
 						c >= obstructionCRStart[0] && c < obstructionCREnd[0] &&
 						r >= obstructionCRStart[1] && r < obstructionCREnd[1]) {
 					if (c == obstructionCRStart[0] && r == obstructionCRStart[1]) {
-						qrSvg += '<image ' +
+						const img_attrs = (
 							'x="' + (totalSize * (1.0 - obstruction.width) * 0.5).toFixed(3)	+ '" ' + 
 							'y="' + (totalSize * (1.0 - obstruction.height) * 0.5).toFixed(3)	+ '" ' + 
 							'width="' + (totalSize * obstruction.width).toFixed(3) + '" ' +
 							'height="' + (totalSize * obstruction.height).toFixed(3) + '" ' + 
-							'preserveAspectRatio="xMidYMid meet" ' +
-							'xlink:href="' + obstruction.path + '" ' +
-						'/>';
+							'preserveAspectRatio="xMidYMid meet" '
+						);
+						if (obstruction.path) {
+							qrSvg += '<image ' + img_attrs + 'xlink:href="' + obstruction.path + '" />';
+						} else {
+
+							qrSvg += '<svg ' + img_attrs + obstruction.svgData.substring(4);
+						}
 					}
 				} else if (this.isDark(r, c) ) {
 					qrSvg += drawCell(c, r, mc, mr);

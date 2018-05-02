@@ -33,7 +33,7 @@ interface QRCode {
 	  drawCell?: (c: number, r: number, x: number, y: number) : string,
 	  cellSize?: number,
 	  margin?: number,
-	  obstruction?: {path: string, width: number, height: number}}) : string;
+	  obstruction?: {path?: string, svgData?: string, width: number, height: number}}) : string;
   createTableTag(cellSize?: number, margin?: number) : string;
 }
 

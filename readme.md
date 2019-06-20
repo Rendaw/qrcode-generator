@@ -36,7 +36,7 @@ First run:
 
 Then use it in your code like:
 
-    import qrcode from './qrcode.js';
+    import qrcode from 'qrcode-generator-es6';
 
     const qr = new qrcode(0, 'H');
     qr.addData('This is my data');
